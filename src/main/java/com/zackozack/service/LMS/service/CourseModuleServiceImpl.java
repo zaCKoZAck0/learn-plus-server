@@ -49,13 +49,15 @@ public class CourseModuleServiceImpl implements CourseModuleService{
     }
 
     @Override
-    public CourseModuleDto updateCourseModule(Long courseId, CourseModuleDto courseModuleDto) {
+    public CourseModuleDto updateCourseModule(Long courseId, Long id, CourseModuleDto courseModuleDto) {
         log.info("Updating course module with id: {} , course id: {}", courseModuleDto.getId(), courseId);
         Course course = courseRepository.findById(courseId).orElseThrow(
                 () -> new ResourceNotFoundException("Course not found with id: " + courseId)
         );
-        CourseModule courseModule = modelMapper.map(courseModuleDto, CourseModule.class);
-        courseModule.setCourse(course);
+        CourseModule courseModule = courseModuleRepository.findById(id).orElseThrow(
+                () -> new ResourceNotFoundException("Course module not found with id: " + id)
+        );
+        mapDTOtoEntity(courseModuleDto, courseModule);
         courseModule = courseModuleRepository.save(courseModule);
         log.info("Course module updated with id: {}", courseModule.getId());
         return modelMapper.map(courseModule, CourseModuleDto.class);
@@ -68,11 +70,18 @@ public class CourseModuleServiceImpl implements CourseModuleService{
         Course course = courseRepository.findById(courseId).orElseThrow(
                 () -> new ResourceNotFoundException("Course not found with id: " + courseId)
         );
-        CourseModule courseModule = courseModuleRepository.findById(id).orElseThrow(
-                () -> new ResourceNotFoundException("Course module not found with id: " + id)
-        );
+        Boolean exists = courseModuleRepository.existsById(id);
+        if (!exists) {
+            throw new ResourceNotFoundException("Course module not found with id: " + id);
+        }
         courseModuleRepository.deleteById(id);
         log.info("Course module deleted with id: {}", id);
         return true;
     }
+
+   private void mapDTOtoEntity(CourseModuleDto courseModuleDto, CourseModule courseModule){
+        courseModule.setName(courseModuleDto.getName());
+        courseModule.setOrderNumber(courseModuleDto.getOrderNumber());
+        courseModule.setPublished(courseModuleDto.getPublished());
+   }
 }

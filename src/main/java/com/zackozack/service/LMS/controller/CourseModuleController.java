@@ -24,4 +24,9 @@ public class CourseModuleController {
         CourseModuleDto newCourseModule = courseModuleService.createNewCourseModule(courseId, courseModuleDto);
         return new ResponseEntity<>(newCourseModule, HttpStatus.CREATED);
     }
+    @PutMapping("/{courseId}/modules/{moduleId}")
+    public ResponseEntity<CourseModuleDto> updateCourseModule(@PathVariable Long courseId, @PathVariable Long moduleId, @RequestBody CourseModuleDto courseModuleDto) {
+        CourseModuleDto updatedCourseModule = courseModuleService.updateCourseModule(courseId, moduleId, courseModuleDto);
+        return new ResponseEntity<>(updatedCourseModule, HttpStatus.OK);
+    }
 }

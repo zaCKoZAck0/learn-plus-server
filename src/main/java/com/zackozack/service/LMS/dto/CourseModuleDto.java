@@ -19,6 +19,6 @@ public class CourseModuleDto {
     @NotBlank(message = "Order number is required")
     @Min(1)
     private Integer orderNumber;
-    private List<ModuleContent> contents;
+    private List<ModuleContentDto> contents;
     private Boolean published;
 }

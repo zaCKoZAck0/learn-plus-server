@@ -28,6 +28,6 @@ public class CourseModule {
     @OneToMany(mappedBy = "courseModule", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @OrderBy("orderNumber ASC")
     private List<ModuleContent> contents;
-    @OneToOne(mappedBy = "courseModule", cascade = CascadeType.ALL)
+    @OneToOne
     private ModuleQuiz quiz;
 }

@@ -24,7 +24,7 @@ public class Enrollment {
     @ManyToOne
     @JoinColumn(name = "course_id", nullable = false)
     private Course course;
-    private Boolean completed;
+    private Double progress;
     @CreationTimestamp
     private LocalDateTime enrolledAt;
 }

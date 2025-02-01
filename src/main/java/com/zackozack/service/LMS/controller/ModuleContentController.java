@@ -19,17 +19,17 @@ public class ModuleContentController {
     }
     @GetMapping("/{moduleId}/contents/{id}")
     public ResponseEntity<ModuleContentDto> getModuleContentById(@PathVariable Long moduleId, @PathVariable Long id) {
-        ModuleContentDto moduleContentDto = moduleContentService.getModuleContentById(moduleId, id);
+        ModuleContentDto moduleContentDto = moduleContentService.getModuleContentById(id);
         return new ResponseEntity<>(moduleContentDto, HttpStatus.OK);
     }
     @PutMapping("/{moduleId}/contents/{id}")
     public ResponseEntity<ModuleContentDto> updateModuleContent(@PathVariable Long moduleId, @PathVariable Long id, @RequestBody ModuleContentDto moduleContentDto) {
-        ModuleContentDto updatedModuleContent = moduleContentService.updateModuleContent(moduleId, id, moduleContentDto);
+        ModuleContentDto updatedModuleContent = moduleContentService.updateModuleContent(id, moduleContentDto);
         return new ResponseEntity<>(updatedModuleContent, HttpStatus.OK);
     }
     @DeleteMapping("/{moduleId}/contents/{id}")
     public ResponseEntity<Boolean> deleteModuleContent(@PathVariable Long moduleId, @PathVariable Long id) {
-        Boolean isDeleted = moduleContentService.deleteModuleContent(moduleId, id);
+        Boolean isDeleted = moduleContentService.deleteModuleContent(id);
         return new ResponseEntity<>(isDeleted, HttpStatus.OK);
     }
 }

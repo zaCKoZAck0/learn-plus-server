@@ -13,9 +13,11 @@ public class QuestionAttempt {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
-    @JoinColumn(name = "selected_option_id", nullable = false)
-    private QuizOption selectedOption;
-    @ManyToOne
     @JoinColumn(name = "quiz_attempt_id", nullable = false)
     private QuizAttempt quizAttempt;
+    @OneToOne
+    @JoinColumn(name = "quiz_question_id", nullable = false)
+    private QuizQuestion quizQuestion;
+    private Integer timeSpentInSecs;
+    private String textResponse;
 }

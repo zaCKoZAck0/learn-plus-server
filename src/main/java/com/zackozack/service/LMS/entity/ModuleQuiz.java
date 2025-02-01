@@ -12,7 +12,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "module_quizzes")
-public class ModuleQuiz {
+public class
+ModuleQuiz {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -24,7 +25,7 @@ public class ModuleQuiz {
     @Column(nullable = false)
     private Double passingGradePercentage;
     @Min(0)
-    private Integer timeLimitMinutes;
+    private Integer timeLimitInSecs;
     private Boolean shuffleQuestions;
     private Boolean shuffleAnswers;
     private Boolean showCorrectAnswersAtEnd;

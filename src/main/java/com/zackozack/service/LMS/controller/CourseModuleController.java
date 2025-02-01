@@ -7,26 +7,24 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/v1/courses")
 @RequiredArgsConstructor
 public class CourseModuleController {
     private final CourseModuleService courseModuleService;
-    @GetMapping("/{courseId}/modules")
-    public ResponseEntity<List<CourseModuleDto>> getAllCourses(@PathVariable Long courseId) {
-        List<CourseModuleDto> courseModuleDtos = courseModuleService.getAllCourseModules(courseId);
-        return new ResponseEntity<>(courseModuleDtos, HttpStatus.OK);
-    }
-    @PostMapping("/{courseId}/modules")
-    public ResponseEntity<CourseModuleDto> createCourseModule(@PathVariable Long courseId, @RequestBody CourseModuleDto courseModuleDto) {
-        CourseModuleDto newCourseModule = courseModuleService.createNewCourseModule(courseId, courseModuleDto);
-        return new ResponseEntity<>(newCourseModule, HttpStatus.CREATED);
-    }
     @PutMapping("/{courseId}/modules/{moduleId}")
-    public ResponseEntity<CourseModuleDto> updateCourseModule(@PathVariable Long courseId, @PathVariable Long moduleId, @RequestBody CourseModuleDto courseModuleDto) {
-        CourseModuleDto updatedCourseModule = courseModuleService.updateCourseModule(courseId, moduleId, courseModuleDto);
+    public ResponseEntity<CourseModuleDto> updateCourseModule(@PathVariable Long moduleId, @RequestBody CourseModuleDto courseModuleDto) {
+        CourseModuleDto updatedCourseModule = courseModuleService.updateCourseModule(moduleId, courseModuleDto);
         return new ResponseEntity<>(updatedCourseModule, HttpStatus.OK);
+    }
+    @PatchMapping("/{courseId}/modules/{moduleId}/publish")
+    public ResponseEntity<CourseModuleDto> publishCourseModule(@PathVariable Long moduleId) {
+        CourseModuleDto publishedCourseModule = courseModuleService.publishCourseModule(moduleId);
+        return new ResponseEntity<>(publishedCourseModule, HttpStatus.OK);
+    }
+    @DeleteMapping("/{courseId}/modules/{moduleId}")
+    public ResponseEntity<Boolean> deleteCourseModule(@PathVariable Long moduleId) {
+        Boolean isDeleted = courseModuleService.deleteCourseModule(moduleId);
+        return new ResponseEntity<>(isDeleted, HttpStatus.OK);
     }
 }

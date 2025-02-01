@@ -1,5 +1,6 @@
 package com.zackozack.service.LMS.entity;
 
+import com.zackozack.service.LMS.entity.enums.QuizQuestionType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -24,6 +25,13 @@ public class QuizQuestion {
     private String questionStatement;
     @Column(nullable = false)
     private Integer marks;
+    @Column(nullable = false)
+    private Integer negativeMarks;
+    @Column(nullable = false)
+    private Boolean multipleCorrectAnswers;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private QuizQuestionType questionType;
     @ManyToOne
     @JoinColumn(name = "module_quiz_id", nullable = false)
     private ModuleQuiz moduleQuiz;

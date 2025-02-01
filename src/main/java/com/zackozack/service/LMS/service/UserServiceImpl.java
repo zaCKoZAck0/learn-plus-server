@@ -1,6 +1,7 @@
 package com.zackozack.service.LMS.service;
 
 
+import com.zackozack.service.LMS.dto.UserCredentialsDto;
 import com.zackozack.service.LMS.dto.UserDto;
 import com.zackozack.service.LMS.entity.User;
 import com.zackozack.service.LMS.entity.enums.Role;
@@ -19,7 +20,7 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final ModelMapper modelMapper;
     @Override
-    public UserDto save(UserDto userDto) {
+    public UserDto register(UserCredentialsDto userDto) {
         log.info("Creating new user with email: {}", userDto.getEmail());
         User user = modelMapper.map(userDto, User.class);
         user.setRole(Role.USER);

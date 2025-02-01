@@ -7,6 +7,7 @@ import java.util.List;
 public interface CourseModuleService {
     List<CourseModuleDto> getAllCourseModules(Long courseId);
     CourseModuleDto createNewCourseModule(Long courseId, CourseModuleDto courseModuleDto);
-    CourseModuleDto updateCourseModule(Long courseId, Long id, CourseModuleDto courseModuleDto);
-    Boolean deleteCourseModule(Long courseId, Long id);
+    CourseModuleDto updateCourseModule(Long id, CourseModuleDto courseModuleDto);
+    CourseModuleDto publishCourseModule(Long id);
+    Boolean deleteCourseModule(Long id);
 }

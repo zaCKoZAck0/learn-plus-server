@@ -1,6 +1,7 @@
 package com.zackozack.service.LMS.controller;
 
 import com.zackozack.service.LMS.dto.CourseDto;
+import com.zackozack.service.LMS.dto.UserCredentialsDto;
 import com.zackozack.service.LMS.dto.UserDto;
 import com.zackozack.service.LMS.service.CourseService;
 import com.zackozack.service.LMS.service.UserService;
@@ -15,8 +16,8 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
     private final UserService userService;
     @PostMapping("/register")
-    public ResponseEntity<UserDto> register(@RequestBody UserDto userDto) {
-        UserDto newUser = userService.save(userDto);
+    public ResponseEntity<UserDto> register(@RequestBody UserCredentialsDto userDto) {
+        UserDto newUser = userService.register(userDto);
         return new ResponseEntity<>(newUser, HttpStatus.CREATED);
     }
     @GetMapping("/{id}")

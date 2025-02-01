@@ -21,7 +21,7 @@ public class CourseDto {
     private String category;
 
     @NotNull(message = "Instructor is required")
-    private User instructor;
+    private InstructorDto instructor;
 
     @NotNull(message = "Price is required")
     @DecimalMin(value = "0.0", inclusive = false, message = "Price must be greater than 0")

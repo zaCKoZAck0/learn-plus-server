@@ -33,22 +33,16 @@ public class ModuleContentServiceImpl implements ModuleContentService {
     }
 
     @Override
-    public ModuleContentDto getModuleContentById(Long moduleId, Long id) {
+    public ModuleContentDto getModuleContentById(Long id) {
         log.info("Fetching module content with id: {}", id);
-        CourseModule courseModule = courseModuleRepository.findById(moduleId)
-                .orElseThrow(() -> new ResourceNotFoundException("Course module not found with id: " + moduleId));
-        Course course = courseModule.getCourse();
         ModuleContent moduleContent = moduleContentRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Module content not found with id: " + id));
         return modelMapper.map(moduleContent, ModuleContentDto.class);
     }
 
     @Override
-    public ModuleContentDto updateModuleContent(Long moduleId, Long id, ModuleContentDto moduleContentDto) {
+    public ModuleContentDto updateModuleContent(Long id, ModuleContentDto moduleContentDto) {
         log.info("Updating module content with id: {}", id);
-        CourseModule courseModule = courseModuleRepository.findById(moduleId)
-                .orElseThrow(() -> new ResourceNotFoundException("Course module not found with id: " + moduleId));
-        Course course = courseModule.getCourse();
         ModuleContent moduleContent = moduleContentRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Module content not found with id: " + id));
         mapDTOToEntity(moduleContentDto, moduleContent);
@@ -58,11 +52,8 @@ public class ModuleContentServiceImpl implements ModuleContentService {
     }
 
     @Override
-    public Boolean deleteModuleContent(Long moduleId, Long id) {
+    public Boolean deleteModuleContent(Long id) {
         log.info("Deleting module content with id: {}", id);
-        CourseModule courseModule = courseModuleRepository.findById(moduleId)
-                .orElseThrow(() -> new ResourceNotFoundException("Course module not found with id: " + moduleId));
-        Course course = courseModule.getCourse();
         ModuleContent moduleContent = moduleContentRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Module content not found with id: " + id));
         moduleContentRepository.delete(moduleContent);

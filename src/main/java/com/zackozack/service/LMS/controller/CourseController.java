@@ -1,6 +1,8 @@
 package com.zackozack.service.LMS.controller;
 
 import com.zackozack.service.LMS.dto.CourseDto;
+import com.zackozack.service.LMS.dto.CourseModuleDto;
+import com.zackozack.service.LMS.service.CourseModuleService;
 import com.zackozack.service.LMS.service.CourseService;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +20,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CourseController {
     private final CourseService courseService;
+    private final CourseModuleService courseModuleService;
     @GetMapping
     public ResponseEntity<List<CourseDto>> getAllCourses() {
         List<CourseDto> courseDtos = courseService.getAllCourses();
@@ -42,6 +45,7 @@ public class CourseController {
     public ResponseEntity<Boolean> deleteCourse(@PathVariable Long id) {
         Boolean isDeleted = courseService.deleteCourse(id);
         return new ResponseEntity<>(isDeleted, HttpStatus.OK);
+//      return ResponseEntity.noContent().build();
     }
     @PatchMapping("/{id}/publish")
     public ResponseEntity<CourseDto> publishCourse(@PathVariable Long id) {
@@ -57,5 +61,15 @@ public class CourseController {
     public ResponseEntity<CourseDto[]> getAllCoursesFromInstructor(@PathVariable Long instructorId) {
         CourseDto[] courseDtos = courseService.getAllCoursesByInstructor(instructorId);
         return new ResponseEntity<>(courseDtos, HttpStatus.OK);
+    }
+    @GetMapping("/{courseId}/modules")
+    public ResponseEntity<List<CourseModuleDto>> getAllCourses(@PathVariable Long courseId) {
+        List<CourseModuleDto> courseModuleDtos = courseModuleService.getAllCourseModules(courseId);
+        return new ResponseEntity<>(courseModuleDtos, HttpStatus.OK);
+    }
+    @PostMapping("/{courseId}/modules")
+    public ResponseEntity<CourseModuleDto> createCourseModule(@PathVariable Long courseId, @RequestBody CourseModuleDto courseModuleDto) {
+        CourseModuleDto newCourseModule = courseModuleService.createNewCourseModule(courseId, courseModuleDto);
+        return new ResponseEntity<>(newCourseModule, HttpStatus.CREATED);
     }
 }

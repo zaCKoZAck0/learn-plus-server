@@ -1,6 +1,8 @@
 package com.zackozack.service.LMS.entity;
 
+import com.zackozack.service.LMS.entity.enums.QuizAttemptStatus;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,9 +26,12 @@ public class QuizAttempt {
     @JoinColumn(name = "quiz_id", nullable = false)
     private ModuleQuiz quiz;
     private Integer score;
-    private Boolean completed;
+    @Enumerated(EnumType.STRING)
+    @NotNull
+    private QuizAttemptStatus status;
     private Boolean passed;
     private Integer attemptNumber;
     @CreationTimestamp
-    private LocalDateTime attemptedAt;
+    private LocalDateTime startedAt;
+    private LocalDateTime submittedAt;
 }

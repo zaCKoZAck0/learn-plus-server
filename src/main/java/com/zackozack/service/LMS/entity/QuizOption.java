@@ -20,4 +20,6 @@ public class QuizOption {
     private Integer optionNumber;
     private String optionText;
     private Boolean correct;
+    private String explanation;
+    private String image;
 }
